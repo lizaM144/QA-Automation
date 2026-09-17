@@ -11,3 +11,5 @@ console.log(qty);
 const value = null;
 const amount = value ?? 10;//if value is null or undefined, then amount will be 10, otherwise it will be value
 console.log(amount);
+//input = 0 gives 0 which is correct
+// only null/undefined will give the default value, other falsy values like 0, '', false, NaN will not give the default value
