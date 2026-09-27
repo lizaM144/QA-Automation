@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><title>Qrius Pay</title></head>
+<body>
+  <!-- site header, note the generated looking class -->
+  <header class="css-9f2ab1">
+    <h1>Qrius Pay</h1>
+    <!-- live balance, updated by script later -->
+    <span id="balance">Rs 0.00</span>
+  </header>
+
+  <!-- login form, properly labelled -->
+  <form id="login-form">
+    <label for="mobile">Mobile number</label>
+    <input id="mobile" name="mobile" type="tel"/>
+    <label for="mpin">mPIN</label>
+    <input id="mpin" name="mpin" type="password"/>
+    <!-- the only element with a test id -->
+    <button type="submit" data-testid="login-btn">Log in</button>
+  </form>
+
+  <!-- send money form, deliberately unlabelled -->
+  <form id="send-form">
+    <input name="to" type="tel" placeholder="Recipient number"/>
+    <input name="amount" type="number" placeholder="Amount"/>
+    <!-- styling classes only, no id, no test id -->
+    <button class="btn btn-primary px-4" disabled>Send</button>
+  </form>
+
+  <!-- transaction history -->
+  <table id="txn-table">
+    <tr><th>Name</th><th>Channel</th><th>Amount</th><th>Status</th></tr>
+    <tr class="txn"><td>Sita Gurung</td><td>eSewa</td><td>1200</td><td class="ok">Success</td></tr>
+    <tr class="txn"><td>Ramesh Thapa</td><td>Khalti</td><td>450</td><td class="failed">Failed</td></tr>
+    <tr class="txn"><td>Anita Shrestha</td><td>ConnectIPS</td><td>8000</td><td class="ok">Success</td></tr>
+  </table>
+
+  <!-- statement links -->
+  <a href="/statement/2081-baisakh.pdf">Baisakh</a>
+  <a href="/statement/2081-jestha.pdf">Jestha</a>
+  <a href="/help">Help</a>
+
+  <script>
+    // fills the balance one second after load, on purpose
+    setTimeout(function(){
+      // find the span and write the real figure into it
+      document.getElementById("balance").textContent = "Rs 12,450.00";
+    }, 1000);
+  </script>
+</body>
+</html>
