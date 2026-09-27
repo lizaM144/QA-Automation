@@ -1,0 +1,87 @@
+1. Draw the tree for the send money form only. Parent, children, siblings. Five lines is enough. Do it on paper, not by copying slide 10.
+
+form#send-form ->             Parent
+    input[name="to"] ->       Child
+    input[name="amount"] ->   Child + sibling of first input
+    button.btn.btn-primary -> Child + sibling of both inputs
+
+
+2. Write one CSS selector for each of the six targets in the next tab. None of them is copied word for word off a slide.
+3. Prove every one with document.querySelectorAll('...').length. Each must return the count printed beside it.
+4. Mark each selector stable or brittle and write one sentence naming the change that would break it.
+
+
+i. The mPIN input, scoped to the login form
+   document.querySelectorAll('#login-form input[name="mpin"]')
+   
+   Length: 
+   document.querySelectorAll('#login-form input[name="mpin"]').length 
+   Returns: 1
+
+   It is stable as it uses the form's ID and input's name.
+   Changing the name="mpin" or changing or removing the id="login=form" would break it.
+
+ii. The amount field in the send money form
+    document.querySelectorAll('#send-form input[type="number"]')
+    
+    Length:
+    document.querySelectorAll('#send-form input[type="number"]').length
+    Returns: 1
+
+    It is stable.
+    Changing the type or addition of another type= "number" would break it.
+
+iii. The Send button, which has no id and no test id
+     document.querySelectorAll('#send-form button.btn.btn-primary')
+     
+     Length:
+     document.querySelectorAll('#send-form button.btn.btn-primary').length
+     Returns: 1
+
+     It is brittle.
+     Changing the button's style or adding a button with similar css styling would break it.
+
+iv. Every transaction row, but not the header row
+    document.querySelectorAll('.txn')
+    
+    Length:
+    document.querySelectorAll('.txn').length
+    Returns: 3
+
+    It is relatively stable.
+    Renaming or removing the class .txn could break it.
+
+v. The name cell of the row that failed, so the text reads Ramesh Thapa
+   document.querySelector('tr:has(td.failed) td:first-child').textContent
+   
+   Length:
+   document.querySelectorAll('tr:has(td.failed) td:first-child').length
+   Returns: 1
+
+   It is stable.
+   Renaming/removing the table data failed or changing the structure of the table would break it.
+
+vi. Only the statement download links, not the Help link
+    document.querySelectorAll('a[href^="/statement/"]')
+   
+    Length:
+    document.querySelectorAll('a[href^="/statement/"]').length
+    Returns: 2
+
+    It is stable.
+    Changing the statement pattern to something else would break it.
+
+
+
+
+
+
+5. Answer the balance question at the bottom of the targets tab.
+
+document.querySelector('#balance').textContent
+Q. Why does it show different amount when the page is freshly opened and a different amount five seconds later?
+Ans: First the page loads, the balance is Rs 0.00. After 1 second the JavaScript setTimeout function runs and the balance is Rs 12,450.00.
+
+Q. Which one would an automated test have seen?
+Ans: An automated test that check too early could see Rs 0.00. But if the test waits for 1 sec then it will see Rs 12,450.00 balance.
+
