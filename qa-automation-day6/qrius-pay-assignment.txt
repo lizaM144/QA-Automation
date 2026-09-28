@@ -73,9 +73,6 @@ vi. Only the statement download links, not the Help link
 
 
 
-
-
-
 5. Answer the balance question at the bottom of the targets tab.
 
 document.querySelector('#balance').textContent
@@ -85,3 +82,36 @@ Ans: First the page loads, the balance is Rs 0.00. After 1 second the JavaScript
 Q. Which one would an automated test have seen?
 Ans: An automated test that check too early could see Rs 0.00. But if the test waits for 1 sec then it will see Rs 12,450.00 balance.
 
+STRETCH
+1. Rewrite target 3 as a genuinely stable selector. You will find you cannot. Write the one line change to the markup you would ask a developer for, and say why.
+Ans: I would ask the developer to add a dedicated testid for the send button.Giving a testid is important as it provides stable and dedicated hooks for automated tests.
+These ids won't change and won't break when designers change CSS styles, update class names or modify texts.
+
+Eg:- <button data-testid="send-button" class="btn btn-primary px-4" disabled>Send</button>
+
+
+2. Add data-testid attributes to the send form yourself, save, reload, and rewrite targets 3 and 5 using them. Compare the lengths.
+Ans: 
+For Target 3:
+    <button data-testid="send-button" class="btn btn-primary px-4" disabled>Send</button>
+    document.querySelectorAll('[data-testid="send-button"]').length
+    Returns: 1
+
+
+For Target 5:
+    <tr class="txn"><td>Ramesh Thapa</td><td>Khalti</td><td>450</td><td data-testid="failed-txn">Failed</td></tr>
+    document.querySelectorAll('[data-testid="failed-txn"]').length
+    Returns: 1
+
+3. Start server.js and record five requests as a small table: method, path, status code and Content-Type. Include at least one 404 and one error above 400.
+
+METHOD                    PATH                     STATUS CODE               Content-Type
+GET                   localhost:3000/                   200                 text/html; charset=utf-8
+GET                    /api/balance                     200                 application/json
+GET              /statement/2081-baisakh.pdf            404                 application/json
+POST                   /api/payments                    201                 application/json
+GET                    /api/salary                      403                 application/json
+GET                    /api/boom                        500                 application/json
+
+
+4. Open any live Nepali site, a bank or a news portal. Find one element with a stable hook and one with a generated class. Screenshot both.
