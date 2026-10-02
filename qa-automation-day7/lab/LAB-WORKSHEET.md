@@ -26,13 +26,9 @@ Sign in as each account at http://localhost:5173. Keep DevTools open on the **Ne
 | #   |                         Request                                       |Expected status| Actual status|        Message                    |
 |-----|-----------------------------------------------------------------------|---------------|--------------|-----------------------------------|
 | 2.1 | `curl -i http://localhost:3000/health`                                |     200       |      200     |{"status":"ok","api":"up","database":"connected"}|
-
 | 2.2 | `curl -i http://localhost:3000/employees`                             |     401       |      401     |{"message":"Missing bearer token","error":"Unauthorized","statusCode":401}|
-
 | 2.3 |`curl -i http://localhost:3000/employees -H "Authorization: Bearer $HR"`| 200          | 200          | all employee object with monthlySalaryPaisa key |
-
 | 2.4 | Same as 2.3 with `$EMP`. Is `monthlySalaryPaisa` in the JSON?         | 200           |200           | all employee object without monthlySalaryPaisa key|
-No there is no monthlySalaryPaisa in the JSON for $EMP
 
 ## Task 3: Break the DTO rules (as HR)
 
@@ -48,15 +44,10 @@ Then edit the `BODY=` line to break **one field at a time** and resend:
 | #   | Change                                  | Expected | Actual status | Exact message |
 |-----|-----------------------------------------|----------|---------------|---------------|
 | 3.1 | none (valid body)                       | 201      | 201           |{"fullName":"Rita Lama","email":"rita.lama@qrius.test","department":"QA","designation":"QA Intern","phone":"9812345678","city":"Pokhara","monthlySalaryPaisa":3500000,"id":13,"isActive":true}
-
 | 3.2 | send it again, unchanged                | 409      | 409           | "An employee with email rita.lama@qrius.test already exists","error":"Conflict","statusCode":409 |
-
 | 3.3 | `"phone":"12345"`                       | 400      | 400           | ["phone must be a 10-digit Nepali mobile number starting with 97 or 98"],"error":"Bad Request","statusCode":400|
-
 | 3.4 | `"department":"Marketing"`              | 400      | 400           | ["department must be one of the following values: Engineering, QA, HR, Finance, Operations"],"error":"Bad Request","statusCode":400|
-
 | 3.5 | add `"isAdmin":true`                    | 400      | 400           |["property isAdmin should not exist"],"error":"Bad Request","statusCode":400 |
-
 | 3.6 | `"monthlySalaryPaisa":"35000"` (a string) | 400    | 400           | ["monthlySalaryPaisa must not be less than 0","monthlySalaryPaisa must be an integer number"],"error":"Bad Request","statusCode":400 |
 
 
@@ -65,11 +56,8 @@ Then edit the `BODY=` line to break **one field at a time** and resend:
 | #   | Who                | Request                                      | Expected | Actual |
 |-----|--------------------|----------------------------------------------|----------|--------|
 | 4.1 | EMPLOYEE           | Task 3's `curl` with `$EMP` instead of `$HR` | 403      | 403    | "Role EMPLOYEE cannot perform this action","error":"Forbidden","statusCode":403
-
 | 4.2 | HR                 | DELETE `/employees/1`                        | 403      | 403    |"Role HR cannot perform this action","error":"Forbidden","statusCode":...|
-
 | 4.3 | EMPLOYEE           | POST `/employees` with body `{"fullName":"R"}` | 400    | 400    | "fullName must be longer than or equal to 2 characters","email must be an email","department must be..."|
-
 | 4.4 | EMPLOYEE in the UI | open http://localhost:5173/employees/new directly and submit | 403 | 403 |
 
 
