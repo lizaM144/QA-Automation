@@ -41,6 +41,7 @@ then prove it matches **exactly one** element (Elements panel Ctrl+F shows `1 of
 ## Write one bug report
 
 Pick one defect from Part A. Title, steps, expected, actual, **evidence from DevTools**, severity.
+
 **Defect:** Search crashed the employee directory
 **Title:** Search causes the employee directory page to become blank
 **Env:** Chrome, web started with npm run dev, API on: 3000
