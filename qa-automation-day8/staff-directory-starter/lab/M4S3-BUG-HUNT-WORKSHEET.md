@@ -43,18 +43,25 @@ then prove it matches **exactly one** element (Elements panel Ctrl+F shows `1 of
 Pick one defect from Part A. Title, steps, expected, actual, **evidence from DevTools**, severity.
 
 **Defect:** Search crashed the employee directory
+
 **Title:** Search causes the employee directory page to become blank
+
 **Env:** Chrome, web started with npm run dev, API on: 3000
+
 **Steps:**
 1. Open the HR application in bug mode.
 2. Sign in as hr.sita with the correct password.
 3. Go to the employee directory.
 4. Type an employee's name in the Search field.
+
 **Expected:** The employee directory should filter the list and display the matching employee.
+
 **Actual:** The page becomes blank when a name is entered in the Search field.
+
 **Evidence:** 
 Network: GET /employees -> 304, X-Request-Id 928b6920
 Console: DirectoryPage.tsx:39 Uncaught TypeError: Cannot read properties of undefined (reading 'toLowerCase')
+
 **Severity:** High. Searching for employees causes the employee directory to become unusable and prevents the user from performing any actions
 
 ## When you finish
